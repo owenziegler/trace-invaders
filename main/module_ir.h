@@ -7,6 +7,9 @@ Owen Ziegler
 Description:
 IR Sensor Header File. Contains declarations of all IR sensor functions
 */
+#ifndef MODULE_IR_H
+#define MODULE_IR_H
+
 #include <stdint.h>
 /*
 IR Sensor Setup function
@@ -23,3 +26,5 @@ Inputs: None
 Outputs: uint8_t lineState
 */
 uint8_t getLineState();
+
+#endif
