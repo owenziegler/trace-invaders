@@ -9,6 +9,8 @@ IR sensor module for Trace Invaders linebot. Contains functions pertaining to th
 */
 
 #include "module_ir.h"
+#include <Arduino.h>
+#include <stdint.h>
 
 //IR sensor pins
 #define IR0 19
@@ -28,10 +30,10 @@ void irSetup() {
 
 uint8_t getLineState() {
   uint8_t lineState = 0;
-  lineState |= (digitalRead(IR0) << 4)
-  lineState |= (digitalRead(IR1) << 3)
-  lineState |= (digitalRead(IR2) << 2)
-  lineState |= (digitalRead(IR3) << 1)
-  lineState |= (digitalRead(IR4) << 0)
+  lineState |= (digitalRead(IR0) << 4);
+  lineState |= (digitalRead(IR1) << 3);
+  lineState |= (digitalRead(IR2) << 2);
+  lineState |= (digitalRead(IR3) << 1);
+  lineState |= (digitalRead(IR4) << 0);
   return lineState;
 }

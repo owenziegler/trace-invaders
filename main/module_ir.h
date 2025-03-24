@@ -7,7 +7,7 @@ Owen Ziegler
 Description:
 IR Sensor Header File. Contains declarations of all IR sensor functions
 */
-
+#include <stdint.h>
 /*
 IR Sensor Setup function
 Sets IR pins to INPUT mode

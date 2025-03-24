@@ -1,5 +1,5 @@
 /*
-module_driver.c
+module_driver.cpp
 
 Joel Osho & Owen Ziegler
 3/19/2025
@@ -9,6 +9,7 @@ Motor driver functions for Line Follower robot. Contains definitions of all moto
 */
 
 #include "module_driver.h"
+#include <Arduino.h>
 
 //pin definitions
 #define AIN1 10
@@ -20,14 +21,14 @@ Motor driver functions for Line Follower robot. Contains definitions of all moto
 #define STBY 9
 
 void driverSetup() {
-  pinMode(AIN1, OUTPUT)
-  pinMode(AIN2, OUTPUT)
-  pinMode(PWMA, OUTPUT)
-  pinMode(BIN1, OUTPUT)
-  pinMode(BIN2, OUTPUT)
-  pinMode(PWMB, OUTPUT)
-  pinMode(STBY, OUTPUT)
-  digitalWrite(STBY, HIGH)
+  pinMode(AIN1, OUTPUT);
+  pinMode(AIN2, OUTPUT);
+  pinMode(PWMA, OUTPUT);
+  pinMode(BIN1, OUTPUT);
+  pinMode(BIN2, OUTPUT);
+  pinMode(PWMB, OUTPUT);
+  pinMode(STBY, OUTPUT);
+  digitalWrite(STBY, HIGH);
 }
 
 void drive() {
