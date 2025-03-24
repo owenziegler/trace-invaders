@@ -12,6 +12,8 @@ Main driver file for Trace Invaders robot code. Contains the main loop & brings 
 #include <module_ir.h>
 #include <stdint.h>
 #include <Arduino.h>
+#include <utils.h>
+#include <string>
 
 //motor driver pins
 #define AIN1 10
@@ -24,20 +26,6 @@ Main driver file for Trace Invaders robot code. Contains the main loop & brings 
 
 uint8_t lineState;
 
-String uint8ToBinary(uint8_t value) {
-    String binary = "";
-    // Loop through each bit (from most significant to least significant)
-    for (int i = 7; i >= 0; --i) {
-        // Check if the bit at position i is set (1) or not (0)
-        if ((value & (1 << i)) != 0) {
-            binary += '1';
-        } else {
-            binary += '0';
-        }
-    }
-    return binary;
-}
-
 void setup() {
   Serial.begin(115200);
   irSetup();
@@ -47,5 +35,25 @@ void loop() {
   lineState = getLineState();
   Serial.print(uint8ToBinary(lineState));
   Serial.print("\n");
+  //centered
+  if(lineState == 0b00000100) {
+    //drive straight forward
+  }
+  //slight left
+  else if(lineState == 0b00001000) {
+    //slight adjust to the left
+  }
+  //slight right
+  else if(lineState == 0b00000010) {
+    //slight adjust to the right
+  }
+  //big left
+  else if(lineState == 0b00010000) {
+    //big adjust to the left
+  }
+  //big right
+  else if(lineState == 0b00000001) {
+    //big adjust to the right
+  }
   delay(100);
 }

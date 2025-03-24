@@ -31,26 +31,79 @@ void driverSetup() {
   digitalWrite(STBY, HIGH);
 }
 
-void drive() {
-  //drive forward
+// Set up motors
+
+void setMotorA(int speed) {
+  if (speed >= 0) {
+    digitalWrite(AIN1, HIGH);
+    digitalWrite(AIN2, LOW);
+  } else {
+    digitalWrite(AIN1, LOW);
+    digitalWrite(AIN2, HIGH);
+    speed = -speed;
+  }
+  analogWrite(PWMA, constrain(speed, 0, 255));
 }
 
-void left() {
-  //turn left
+void setMotorB(int speed) {
+  if (speed >= 0) {
+    digitalWrite(BIN1, HIGH);
+    digitalWrite(BIN2, LOW);
+  } else {
+    digitalWrite(BIN1, LOW);
+    digitalWrite(BIN2, HIGH);
+    speed = -speed;
+  }
+  analogWrite(PWMB, constrain(speed, 0, 255));
 }
 
-void right() {
-  //turn right
+void nudgeLeft(int baseSpeed, int nudgeAmount) {
+  setMotorA(baseSpeed - nudgeAmount);  // Left motor slower
+  setMotorB(baseSpeed);   // Right motor normal
 }
 
-void reverse() {
-  //go backward
-}
+void nudgeRight(int baseSpeed, int nudgeAmount) {
+  setMotorA(baseSpeed);                // Left motor normal
+  setMotorB(baseSpeed - nudgeAmount);   // Right motor slower
+  }
 
-void nudgeleft() {
-  //slightly adjust left
-}
+void loop() {
+  int left = digitalRead(SENSOR_LEFT);
+  int center = digitalRead(SENSOR_CENTER);
+  int right = digitalRead(SENSOR_RIGHT);
 
-void nudgeright() {
-  //slightly adjust right
+  int baseSpeed = 150;
+  int nudgeAmount = 30;  // Adjustable
+
+// Drive forward
+  if (center == HIGH && left == LOW && right == LOW) {
+    setMotorA(baseSpeed);
+    setMotorB(baseSpeed);
+  } 
+// Left nudge
+  else if (left == HIGH && center == LOW && right == LOW) {
+    nudgeLeft(baseSpeed, nudgeAmount);
+  } 
+// Right nude
+  else if (right == HIGH && center == LOW && left == LOW) {
+    nudgeRight(baseSpeed, nudgeAmount);
+  } 
+// More turn left
+  else if (left == HIGH && center == HIGH && right == LOW) {
+    setMotorA(baseSpeed / 2);
+    setMotorB(baseSpeed);
+  } 
+// More turn right
+  else if (right == HIGH && center == HIGH && left == LOW) {
+    setMotorA(baseSpeed);
+    setMotorB(baseSpeed / 2);
+  }
+  // Lost line or intersection — stop or search (go in reverse)
+  else {
+    setMotorA(0);
+    setMotorB(0);
+    delay(2);
+    setMotorA(-55);
+    setMotorB(-55);
+  }
 }
