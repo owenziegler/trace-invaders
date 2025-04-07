@@ -10,6 +10,7 @@ Main driver file for Trace Invaders robot code. Contains the main loop & brings 
 
 #include <SparkFun_TB6612.h>
 #include <module_ir.h>
+#include <module_driver.h>
 #include <stdint.h>
 #include <Arduino.h>
 #include <utils.h>
@@ -24,36 +25,68 @@ Main driver file for Trace Invaders robot code. Contains the main loop & brings 
 #define PWMB 16
 #define STBY 9
 
+#define BUTTON 0
+
 uint8_t lineState;
+bool running = 0;
 
 void setup() {
   Serial.begin(115200);
+  pinMode(BUTTON, INPUT_PULLUP);
   irSetup();
+  driverSetup();
 }
 
 void loop() {
   lineState = getLineState();
-  Serial.print(uint8ToBinary(lineState));
-  Serial.print("\n");
-  //centered
-  if(lineState == 0b00000100) {
-    //drive straight forward
+  Serial.print(uint8ToBinary(lineState) + "\n");
+  Serial.print((digitalRead(BUTTON) == HIGH) + "\n");
+  Serial.print(running + "\n");
+
+  if(running) {
+    switch(lineState) {
+      //center
+      case 0b11011:
+        drive(256,256);
+        break;
+      //left 1
+      case 0b10011:
+        drive(196,256);
+        break;
+      //left 2
+      case 0b10111:
+        drive(64,256);
+        break;
+      //left 3 & 4
+      case 0b00111:
+      case 0b01111:
+        drive(32,196);
+        break;  
+      //right 1
+      case 0b11001:
+        drive(256,196);
+        break;
+      //right 2
+      case 0b11101:
+        drive(256,64);
+        break;
+      //right 3 & 4
+      case 0b11100:
+      case 0b11110:
+        drive(196,32);
+        break;
+      //any other state
+      default:
+        drive(192,192);
+        break;
+    }
   }
-  //slight left
-  else if(lineState == 0b00001000) {
-    //slight adjust to the left
+  else {
+    drive(0,0);
   }
-  //slight right
-  else if(lineState == 0b00000010) {
-    //slight adjust to the right
+  if (!digitalRead(BUTTON)) {
+    running = !running;
+    delay(250);
   }
-  //big left
-  else if(lineState == 0b00010000) {
-    //big adjust to the left
-  }
-  //big right
-  else if(lineState == 0b00000001) {
-    //big adjust to the right
-  }
-  delay(100);
+  delay(50);
 }

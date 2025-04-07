@@ -11,10 +11,10 @@ const int PINS[8] = {
   12, 
   13, 
   14, 
-  NULL, 
+  , 
   NULL, 
   NULL,
-  NULL
+  NULL,
 };
 //declare sequences
 #define LEFT 0b10000000
@@ -24,7 +24,6 @@ const int PINS[8] = {
 
 
 void setup() {
-  Serial.begin(115200);
   //activate all pins
   for(int i = 0; i < 8; i++) {
     if (PINS[i]) pinMode(PINS[i], INPUT);

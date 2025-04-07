@@ -7,10 +7,15 @@ Joel Osho & Owen Ziegler
 Description:
 Header file for motor driver code, contains declaration of all motor driver functions
 */
+#ifndef MODULE_DRIVER_H
+#define MODULE_DRIVER_H
 
+/*
+
+*/
 void driverSetup();
 
-void drive();
+void drive(int left, int right);
 
 void left();
 
@@ -21,3 +26,5 @@ void reverse();
 void nudgeleft();
 
 void nudgeright();
+
+#endif
