@@ -21,7 +21,7 @@ void irSetup();
 
 /*
 Line State function
-Returns the state of the line sensor array, packed into the five most significant bits of a byte
+Returns the state of the line sensor array, packed into the five least significant bits of a byte
 Inputs: None
 Outputs: uint8_t lineState
 */
