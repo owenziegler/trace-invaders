@@ -29,7 +29,8 @@ void lcdSetup() {
 void displayStrings(String line1, String line2) {
   //check for valid input
   if(line1.length() > 16 || line2.length() > 16) {
-    errorMessage();
+    displayError();
+    return -1;
   }
   else {
     lcd.clear();
@@ -38,6 +39,10 @@ void displayStrings(String line1, String line2) {
     lcd.setCursor(0,1);
     lcd.print(line2);
   }
+}
+
+void clearDisplay() {
+  lcd.clear();
 }
 
 void displayError() {

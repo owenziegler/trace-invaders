@@ -66,7 +66,7 @@ void nudgeRight(int baseSpeed, int nudgeAmount) {
   setMotorA(baseSpeed);                // Left motor normal
   setMotorB(baseSpeed - nudgeAmount);   // Right motor slower
   }
-
+/*
 void loop() {
   int left = digitalRead(SENSOR_LEFT);
   int center = digitalRead(SENSOR_CENTER);
@@ -106,4 +106,4 @@ void loop() {
     setMotorA(-55);
     setMotorB(-55);
   }
-}
+}*/

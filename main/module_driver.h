@@ -15,6 +15,9 @@ Header file for motor driver code, contains declaration of all motor driver func
 */
 void driverSetup();
 
+void setMotorA(int speed);
+void setMotorB(int speed);
+
 void drive(int left, int right);
 
 void left();

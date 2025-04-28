@@ -5,7 +5,9 @@ Owen Ziegler
 2025 04 09
 
 Description:
-Header file for the Line Bot Timer Module. Contains declarations of all Timer functions
+Header file for the Line Bot Timer Module.
+The Timer module is meant to mimic a stopwatch in its interface.
+Contains declarations of all Timer functions.
 */
 
 #ifndef MODULE_TIMER_H
@@ -17,17 +19,14 @@ class Timer {
   public:
     //constructor
     Timer();
-    //get the current time in seconds (float)
-    float getCurrent_s();
-    //get the current time in milliseconds (unsigned long)
-    unsigned long getCurrent_ms();
-    //get the starting time
-    unsigned long getStart();
-    //reset the timer
-    void reset();
+    //start the timer
+    void start();
+    //stop, reset the timer, and return the recorded time in a float.
+    float stop();
+
   private:
     //starting time
     unsigned long start;
-}
+};
 
 #endif
